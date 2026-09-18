@@ -1,6 +1,6 @@
 # Hybrid Identity Lab — Peach Point Therapy
 
-**On-premises Active Directory Domain Services synchronized to Microsoft Entra ID
+**On premises Active Directory Domain Services synchronized to Microsoft Entra ID
 via Entra Connect Sync, with password hash synchronization.**
 
 ![Windows Server 2022](https://img.shields.io/badge/Windows_Server-2022-0078D4)
@@ -15,7 +15,7 @@ via Entra Connect Sync, with password hash synchronization.**
 > ### About this project
 >
 > **Peach Point Therapy is a fictional organization.** It was designed as a lab
-> scenario to model a realistic small-to-mid-size healthcare practice whose
+> scenario to model a realistic small size healthcare practice whose
 > constraints drive genuine architectural decisions. All users, sites, and data
 > are synthetic. No real patient data, client, or employer is involved.
 >
@@ -67,7 +67,7 @@ flowchart TB
 
 Synchronization is **outbound-only over HTTPS 443**. No inbound firewall rules, no
 published endpoints, no DMZ. That is a deliberate property of the Connect Sync
-model and one of the strongest arguments for it in a small-practice environment:
+model and one of the strongest arguments for it in a small practice environment:
 the sync channel adds no external attack surface.
 
 ---
@@ -83,7 +83,7 @@ Five constraints drive every decision in this build:
 1. **No full-time IT staff.** Anything needing ongoing maintenance is a liability.
 2. **Staff float between sites.** Identity follows the person, not the location.
 3. **Regulated patient data.** Access control is role-scoped by default.
-4. **Cloud-first application stack.** Staff authenticate to SaaS all day.
+4. **Cloud first application stack.** Staff authenticate to SaaS all day.
 5. **A single domain controller.** Cloud sign-in cannot depend on it staying up.
 
 > **The problem:** one set of credentials that works on-premises and in the cloud,
