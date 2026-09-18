@@ -1,9 +1,5 @@
 # 02 — Directory design
 
-> **FILL IN** — this document needs your actual OU and group names from
-> `PPT-DC01`. Everything else in the repo is complete. Run the export commands
-> below and paste the results in, then delete this callout.
-
 ## Exporting the real structure
 
 On `PPT-DC01`, in an elevated PowerShell session:
@@ -48,33 +44,64 @@ role and access.**
 
 ## OU structure
 
-<!-- FILL IN: paste the OU tree export here -->
+12 OUs total: a site tier for location-based GPO targeting and a role tier for
+access-control targeting, exactly as the design principles above call for.
 
 ```
 DC=peachpoint,DC=local
-├── OU=...
-├── OU=...
-└── OU=...
+├── OU=PPT-Sites
+│   ├── OU=North
+│   ├── OU=South
+│   └── OU=West
+├── OU=PPT-Users
+│   ├── OU=Admin-Staff
+│   ├── OU=Billing
+│   ├── OU=Front-Desk
+│   ├── OU=Office-Management
+│   └── OU=Therapists
+├── OU=PPT-Shared-Devices
+└── OU=PPT-Workstations
 ```
 
 ![OU structure in Active Directory Users and Computers](../evidence/02-ou-structure.png)
 
 ## Security groups
 
-<!-- FILL IN: paste the group export here -->
+Each role OU carries one `GG-` (global group) scoped to that function, used to
+grant role-based access rather than assigning permissions to individual users.
+One additional group, `GG-ClinicalCarts`, covers a shared device resource
+rather than a role:
 
-| Group | Scope | Members | Purpose |
+| Group | Scope | OU | Purpose |
 |---|---|---|---|
-| | | | |
+| GG-AdminStaff | Global | Admin-Staff | General admin staff |
+| GG-Billing | Global | Billing | Billing staff — clearinghouse access |
+| GG-ClinicalCarts | Global | PPT-Shared-Devices | Shared clinical device/cart access |
+| GG-FrontDesk | Global | Front-Desk | Front desk staff — shared scheduling access |
+| GG-OfficeMgmt | Global | Office-Management | Office manager |
+| GG-Therapists | Global | Therapists | Roaming therapists — EHR access |
 
-![Security groups](../evidence/03-security-groups.png)
+Entra ID reports **12 on-premises security groups synced** (see
+[`06-validation.md`](06-validation.md)), which the verification query below
+accounts for exactly: the 6 custom `GG-` groups above, plus 6 non-critical
+default AD groups (`isCriticalSystemObject = False`) that are eligible to sync
+under Entra Connect's default filtering rules — `ADSyncAdmins`,
+`ADSyncBrowse`, `ADSyncOperators`, `ADSyncPasswordSet`, `DnsAdmins`, and
+`DnsUpdateProxy`. Full output: [`03-security-groups.png`](../evidence/03-security-groups.png).
 
 ## User roster
 
 21 staff accounts distributed across the role structure described in
-[`01-scenario.md`](01-scenario.md).
+[`01-scenario.md`](01-scenario.md):
 
-<!-- FILL IN: paste the per-OU user count export here -->
+| OU | Role | Count |
+|---|---|---|
+| Admin-Staff | Administrative | 4 |
+| Billing | Billing | 1 |
+| Front-Desk | Front desk | 3 |
+| Office-Management | Office manager | 1 |
+| Therapists | Physical / occupational therapist | 12 |
+| **Total** | | **21** |
 
 ![Staff accounts in Active Directory Users and Computers](../evidence/04-user-roster.png)
 

@@ -81,6 +81,14 @@ Source anchor coverage is the strongest single signal: a populated
 `mS-DS-ConsistencyGuid` on an on-premises user means Entra has established and
 written back the link for that object. Users missing it have not synced.
 
+![Source anchor coverage](../evidence/19-source-anchor-coverage.png)
+
+Run against `peachpoint.local`: **21 users True, 4 False.** The 21 is the
+entire staff roster — every real person has a written-back anchor. The 4
+without one are `Administrator`, `Guest`, `krbtgt`, and the `MSOL_` sync
+service account, none of which are expected to sync individually. No
+unexplained objects on either side of this check.
+
 ## Forcing a sync cycle
 
 ```powershell
