@@ -1,0 +1,24 @@
+# Credentials and keys — never commit
+*.key
+*.pem
+*.pfx
+*.pvk
+.env
+secrets/
+credentials*
+*-real.txt
+*-unredacted.*
+
+# Backups and temp
+*.bak
+*.tmp
+~$*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Entra Connect exported config may contain tenant identifiers —
+# sanitize before committing anything from this folder
+configs/exported/
