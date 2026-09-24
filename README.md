@@ -1,4 +1,4 @@
-# Hybrid Identity Lab — Peach Point Therapy
+Hybrid Identity Lab — Peach Point Therapy
 
 **On premises Active Directory Domain Services synchronized to Microsoft Entra ID
 via Entra Connect Sync, with password hash synchronization.**
@@ -75,7 +75,7 @@ the sync channel adds no external attack surface.
 ## The scenario in brief
 
 Peach Point Therapy is a modeled outpatient physical and occupational therapy
-practice running **three clinics** — North, South, and West — with **21 staff**:
+practice running **three clinics** North, South, and West — with **21 staff**:
 12 therapists, 4 administrative, 3 front desk, 1 billing, 1 office manager.
 
 Five constraints drive every decision in this build:
